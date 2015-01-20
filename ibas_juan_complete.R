@@ -367,6 +367,15 @@ numCVgenes <- 400  #number of cross validation genes
 numBootstraps <- 10  #number of boostraps (sampled networks) we wish to use
 useOriginalIbasROCCurve <- TRUE
 ReferenceNetworkSize <- vcount(inweb.g)
+#Network Data Location
+inWebInDataDirectory <- "/Users/jfertaj/INVESTIGACION/WELLCOME/Data_Integration/IBAS_Juan/InWeb3/"
+nameOfEdgeScoreFile <- "InWeb3_score.eda"
+#Output Locations
+outputLocation <- "/Users/jfertaj/INVESTIGACION/WELLCOME/Data_Integration/IBAS_Juan/AnalysisResults/"
+codeLocation <- "/Users/jfertaj/INVESTIGACION/WELLCOME/Data_Integration/IBAS_Juan/"
+vizCodesLocation <- "/Users/jfertaj/INVESTIGACION/WELLCOME/Data_Integration/IBAS_Juan/visualize/"
+saveVisualsHere <-"/Users/jfertaj/INVESTIGACION/WELLCOME/Data_Integration/IBAS_Juan/AnalysisResults/SavedVisuals/"
+degreeSimilarityThreshold <- 0.15
 
 #######################
 ######  Outputs #######
@@ -482,7 +491,7 @@ networkTimeString <- returnMinSec((proc.time() - networkTime)[3])
 print(paste("Network preparation took: ", networkTimeString, sep=""))
 
 getBootstrapSampleGenes <- function(nodes){
-  sample(names(which(degree(inweb.g) >= (1-0.15)*nodes & degree(inweb.g) <= (1+0.15)*nodes)),1)
+  sample(names(which(degree(inweb.g) >= (1-degreeSimilarityThreshold)*nodes & degree(inweb.g) <= (1+degreeSimilarityThreshold)*nodes)),1)
 } # we need to replace 0.15 for a variable call thres
 
 ibasStartTime <- proc.time()
